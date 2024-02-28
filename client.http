@@ -1,0 +1,12 @@
+
+### LISTAR TASKS
+GET http://localhost:3001/tasks
+
+### ADD TASKS
+POST http://localhost:3001/tasks
+
+### UPDATE TASKS
+PUT http://localhost:3001/tasks/um-id-aleatorio
+
+### DELETE TASKS
+DELETE http://localhost:3001/tasks/um-id-aleatorio
