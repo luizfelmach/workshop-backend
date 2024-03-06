@@ -11,16 +11,53 @@ app.get("/tasks", async (request, response) => {
   return response.json({ tasks });
 });
 
-app.post("/tasks", (request, response) => {
-  response.send("ADD TASK");
+app.post("/tasks", async (request, response) => {
+  const task = await prisma.task.create({
+    data: {
+      title: request.body.name,
+    },
+  });
+  return response.json(task);
 });
 
-app.put("/tasks/:id", (request, response) => {
-  response.send("UPDATE TASK");
+// Quando tiver completed = false -> true
+// Quando tiver completed = true -> false
+app.put("/tasks/:id", async (request, response) => {
+  const task = await prisma.task.findFirst({
+    where: {
+      id: request.params.id,
+    },
+  });
+
+  if (!task) {
+    return response.json({
+      error: true,
+    });
+  }
+
+  await prisma.task.update({
+    where: {
+      id: request.params.id,
+    },
+    data: {
+      completed: !task.completed,
+    },
+  });
+
+  return response.json({
+    error: false,
+  });
 });
 
-app.delete("/tasks/:id", (request, response) => {
-  response.send("DELETAR TASK");
+app.delete("/tasks/:id", async (request, response) => {
+  const id = request.params.id;
+  await prisma.task.delete({
+    where: {
+      id,
+    },
+  });
+
+  return response.json();
 });
 
 app.listen(3001);

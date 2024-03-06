@@ -4,9 +4,14 @@ GET http://localhost:3001/tasks
 
 ### ADD TASKS
 POST http://localhost:3001/tasks
+Content-Type: application/json
+
+{
+    "name": "Completar o backend 2"
+}
 
 ### UPDATE TASKS
-PUT http://localhost:3001/tasks/um-id-aleatorio
+PUT http://localhost:3001/tasks/6a2b99c4-e840-46ca-89cf-e9f7b2b19b26
 
 ### DELETE TASKS
 DELETE http://localhost:3001/tasks/um-id-aleatorio
